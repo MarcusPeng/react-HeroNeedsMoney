@@ -1,0 +1,17 @@
+.Index-div {
+	text-align: center;
+	width: 100%;
+}
+
+.Index-div:before {
+	content: '';
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.Index-div2 {
+	display: inline-block;
+	vertical-align: middle;
+	max-width: 100%;
+}
