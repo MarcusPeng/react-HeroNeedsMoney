@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import './Setting.css';
 import Battle from '../battle/Battle';
 import Start from '../start/Start';
-import DataAccess from '../../dataAccess/DataAccess';
+import DataAccess from '../../common/DataAccess';
 
 const defaultTarget = 10000;
 

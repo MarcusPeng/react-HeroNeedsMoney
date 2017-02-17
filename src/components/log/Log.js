@@ -5,7 +5,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 import './Log.css';
 import Start from '../start/Start';
-import DataAccess from '../../dataAccess/DataAccess';
+import DataAccess from '../../common/DataAccess';
 
 class Log extends Component {
   constructor() {

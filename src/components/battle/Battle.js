@@ -10,10 +10,12 @@ import HomeIcon from 'material-ui/svg-icons/action/home';
 import AddCircleIcon from 'material-ui/svg-icons/content/add-circle';
 import LinearProgress from 'material-ui/LinearProgress';
 
+import '../../common/Animate.js';
 import './Battle.css';
 import Start from '../start/Start';
-import DataAccess from '../../dataAccess/DataAccess';
-import boss1 from '../../images/boss1.png';
+// import Complete from '../complete/Complete';
+import DataAccess from '../../common/DataAccess';
+import boss from '../../images/boss1.png';
 
 import {config} from '../../config.js';
 const skill1 = require('../../images/' + config.skills.skill1.image);
@@ -33,6 +35,7 @@ class Battle extends Component {
     this.useSkill = this.useSkill.bind(this);
 
     this.state = { 
+      isEnd: false,
       isGoStart: false,
       isOpenDialog: false,
       inputMoney: '',
@@ -82,7 +85,6 @@ class Battle extends Component {
         this.dataAccess.setBossHp(tempPh);
 
         if (tempPh > Number(this.state.targetMoney)) {
-          //let tempMoney = Number(this.state.targetMoney) - Number(this.state.inputMoney);
           this.setState({targetMoney: tempPh});
           this.dataAccess.setTargetMoney(tempPh);
         }
@@ -102,18 +104,25 @@ class Battle extends Component {
   }
 
   useSkill(e) {
+    let boss = document.getElementById('boss');
     let targetId = e.target.id;
     let skill;
 
     switch (targetId) {
       case "imgSkill1":
+      case "iconButtonSkill1":
         skill = config.skills.skill1;
+        boss.shake();
         break;
       case "imgSkill2":
+      case "iconButtonSkill2":
         skill = config.skills.skill2;
+        boss.flash();
         break;
       case "imgSkill3":
+      case "iconButtonSkill3":
         skill = config.skills.skill3;
+        boss.jello();
         break;
       default:
         break;
@@ -124,6 +133,12 @@ class Battle extends Component {
     this.setState({actionPoint: actionPoint, bossHp: bossHp});
     this.dataAccess.setActionPoint(actionPoint);
     this.dataAccess.setBossHp(bossHp);
+
+    if (bossHp <= 0) {
+      console.log("End");
+      boss.rollOut(false);
+      this.setState({isEnd: true});
+    }
   }
 
   render() {
@@ -133,6 +148,8 @@ class Battle extends Component {
       result = <Start />;
     }
     else {
+      console.log(`Boss HP : ${this.state.bossHp} / ${this.state.targetMoney}`);
+
       let isSkill1Disabled = this.state.actionPoint < config.skills.skill1.actionPoint;
       let isSkill2Disabled = this.state.actionPoint < config.skills.skill2.actionPoint;
       let isSkill3Disabled = this.state.actionPoint < config.skills.skill3.actionPoint;
@@ -141,12 +158,10 @@ class Battle extends Component {
         <FlatButton label="ok" primary={true} keyboardFocused={false} onClick={this.saveInput} />
       ];
 
-      console.log(`Boss HP : ${this.state.bossHp} / ${this.state.targetMoney}`);
-
       result = 
         <div>
           <LinearProgress mode="determinate" max={Number(this.state.targetMoney)} value={Number(this.state.bossHp)} color="red" />
-          <img src={boss1} alt="boss" />
+          <img src={boss} alt="boss" id="boss"/>
           <br />
           <label>{`AP : ${this.state.actionPoint}`}</label>
           <div>
@@ -163,11 +178,13 @@ class Battle extends Component {
                   tooltip="add" 
                   onClick={this.openDialog}
                   style={config.styles.battle.iconButton}
-                  iconStyle={config.styles.battle.icon}>
+                  iconStyle={config.styles.battle.icon}
+                  disabled={Number(this.state.bossHp) === 0}>
                   <AddCircleIcon />
                 </IconButton>
                 <ToolbarSeparator style={config.styles.battle.ToolbarSeparator} />
                 <IconButton 
+                  id="iconButtonSkill1"
                   tooltip="skill1" 
                   onClick={this.useSkill}
                   style={config.styles.battle.iconButton}
@@ -176,6 +193,7 @@ class Battle extends Component {
                   <img src={skill1} alt="skill1" id="imgSkill1" className={isSkill1Disabled ? "Battle-iconDisabled" : ""}/>
                 </IconButton>
                 <IconButton 
+                  id="iconButtonSkill2"
                   tooltip="skill2" 
                   onClick={this.useSkill}
                   style={config.styles.battle.iconButton}
@@ -184,6 +202,7 @@ class Battle extends Component {
                   <img src={skill2} alt="skill2" id="imgSkill2" className={isSkill2Disabled ? "Battle-iconDisabled" : ""}/>
                 </IconButton>
                 <IconButton 
+                  id="iconButtonSkill3"
                   tooltip="skill3" 
                   onClick={this.useSkill}
                   style={config.styles.battle.iconButton}
