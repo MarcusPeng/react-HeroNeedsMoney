@@ -13,7 +13,6 @@ import LinearProgress from 'material-ui/LinearProgress';
 import '../../common/Animate.js';
 import './Battle.css';
 import Start from '../start/Start';
-// import Complete from '../complete/Complete';
 import DataAccess from '../../common/DataAccess';
 import boss from '../../images/boss1.png';
 
@@ -33,6 +32,7 @@ class Battle extends Component {
     this.dateChange = this.dateChange.bind(this);
     this.saveInput = this.saveInput.bind(this);
     this.useSkill = this.useSkill.bind(this);
+    this.doAnimate = this.doAnimate.bind(this);
 
     this.state = { 
       isEnd: false,
@@ -110,22 +110,16 @@ class Battle extends Component {
 
     switch (targetId) {
       case "imgSkill1":
-      case "iconButtonSkill1":
         skill = config.skills.skill1;
-        boss.shake();
         break;
       case "imgSkill2":
-      case "iconButtonSkill2":
         skill = config.skills.skill2;
-        boss.flash();
         break;
       case "imgSkill3":
-      case "iconButtonSkill3":
         skill = config.skills.skill3;
-        boss.jello();
         break;
       default:
-        break;
+        return;
     }
 
     let actionPoint = this.state.actionPoint - skill.actionPoint;
@@ -134,10 +128,31 @@ class Battle extends Component {
     this.dataAccess.setActionPoint(actionPoint);
     this.dataAccess.setBossHp(bossHp);
 
+    this.doAnimate(boss, skill.animation);
+
     if (bossHp <= 0) {
       console.log("End");
-      boss.rollOut(false);
+      this.doAnimate(boss, "rollOut", false);
       this.setState({isEnd: true});
+    }
+  }
+
+  doAnimate(element, animation, isEndRemove) {
+    switch (animation) {
+      case 'shake':
+        element.shake(isEndRemove);
+        break;
+      case 'flash':
+        element.flash(isEndRemove);
+        break;
+      case 'jello':
+        element.jello(isEndRemove);
+        break;
+      case 'rollOut':
+        element.rollOut(isEndRemove);
+        break;
+      default:
+        return;
     }
   }
 
@@ -184,27 +199,24 @@ class Battle extends Component {
                 </IconButton>
                 <ToolbarSeparator style={config.styles.battle.ToolbarSeparator} />
                 <IconButton 
-                  id="iconButtonSkill1"
-                  tooltip="skill1" 
                   onClick={this.useSkill}
+                  tooltip={config.skills.skill1.name}
                   style={config.styles.battle.iconButton}
                   iconStyle={config.styles.battle.icon}
                   disabled={isSkill1Disabled}>
                   <img src={skill1} alt="skill1" id="imgSkill1" className={isSkill1Disabled ? "Battle-iconDisabled" : ""}/>
                 </IconButton>
                 <IconButton 
-                  id="iconButtonSkill2"
-                  tooltip="skill2" 
                   onClick={this.useSkill}
+                  tooltip={config.skills.skill2.name} 
                   style={config.styles.battle.iconButton}
                   iconStyle={config.styles.battle.icon}
                   disabled={isSkill2Disabled}>
                   <img src={skill2} alt="skill2" id="imgSkill2" className={isSkill2Disabled ? "Battle-iconDisabled" : ""}/>
                 </IconButton>
                 <IconButton 
-                  id="iconButtonSkill3"
-                  tooltip="skill3" 
                   onClick={this.useSkill}
+                  tooltip={config.skills.skill3.name}
                   style={config.styles.battle.iconButton}
                   iconStyle={config.styles.battle.icon}
                   disabled={isSkill3Disabled}>

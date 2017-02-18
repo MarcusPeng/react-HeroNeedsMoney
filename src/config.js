@@ -1,8 +1,8 @@
 export const config = {
   skills: {
-    skill1: {name: "aaa", actionPoint : 100, image: "skill1.svg"},
-    skill2: {name: "aaa", actionPoint : 200, image: "skill2.svg"},
-    skill3: {name: "aaa", actionPoint : 300, image: "skill3.svg"}
+    skill1: {name: "aaa", actionPoint : 100, image: "skill1.svg", animation: "shake"},
+    skill2: {name: "aaa", actionPoint : 200, image: "skill2.svg", animation: "flash"},
+    skill3: {name: "aaa", actionPoint : 300, image: "skill3.svg", animation: "jello"}
   },
   styles: {
     battle: {
