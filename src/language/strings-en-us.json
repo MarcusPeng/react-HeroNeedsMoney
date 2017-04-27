@@ -1,0 +1,35 @@
+{
+	"index" : {
+		"notSupport" : "Sorry! Your Browser Not Support.."
+	},
+	"start" : {
+		"title" : "Hero Needs Money",
+		"newGame" : "new game",
+		"continue" : "continue",
+		"log" : "log"
+	},
+	"setting" : {
+		"moneyAlert" : "Target need to bo greater than",
+		"moneyHintText" : "10,000",
+		"moneyFloatingLabelText" : "Target Money",
+		"btnCancelLabel" : "cancel",
+		"btnStartLabel" : "start"
+	},
+	"log" : {
+		"thIndex" : "Index",
+		"thDate" : "Date",
+		"thMoney" : "Money",
+		"btnBackLabel": "back to start"
+	},
+	"battle" : {
+		"validateDateMsg" : "please input date",
+		"validateMoneyMsg" : "please input money",
+		"btnCancelLabel" : "cancel",
+		"btnOkLabel" : "ok",
+		"btnHomeTips" : "home",
+		"btnAddTips" : "add",
+		"dateFloatingLabelText" : "Date",
+		"moneyFloatingLabelText" : "Money",
+		"moneyHintText" : "10,000"
+	}
+}

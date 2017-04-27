@@ -15,6 +15,7 @@ import './Battle.css';
 import Start from '../start/Start';
 import DataAccess from '../../common/DataAccess';
 import boss from '../../images/boss1.png';
+import {stringsBattle} from '../../language/strings.js';
 
 import {config} from '../../config.js';
 const skill1 = require('../../images/' + config.skills.skill1.image);
@@ -67,16 +68,16 @@ class Battle extends Component {
   }
   saveInput() {
     let inputItem = { "date": this.state.inputDate, "money": this.state.inputMoney };
-    let msg = '';
+    let msg = "";
 
     if (inputItem.date === '') {
-      msg = 'please input date';
+      msg = stringsBattle.validateDateMsg;
     }
-    else if (inputItem.money === '') {
-      msg = 'please input money';
+    else if (inputItem.money === "") {
+      msg = stringsBattle.validateMoneyMsg;
     }
 
-    if (msg === '') {
+    if (msg === "") {
 
       //if inputMoney < 0 then add boss hp
       if (this.state.inputMoney < 0) {
@@ -130,6 +131,7 @@ class Battle extends Component {
 
     this.doAnimate(boss, skill.animation);
 
+    console.log(`Boss HP : ${this.state.bossHp} / ${this.state.targetMoney}`);
     if (bossHp <= 0) {
       console.log("End");
       this.doAnimate(boss, "rollOut", false);
@@ -163,14 +165,12 @@ class Battle extends Component {
       result = <Start />;
     }
     else {
-      console.log(`Boss HP : ${this.state.bossHp} / ${this.state.targetMoney}`);
-
       let isSkill1Disabled = this.state.actionPoint < config.skills.skill1.actionPoint;
       let isSkill2Disabled = this.state.actionPoint < config.skills.skill2.actionPoint;
       let isSkill3Disabled = this.state.actionPoint < config.skills.skill3.actionPoint;
       const dialogActions = [
-        <FlatButton label="cancel" secondary={true} keyboardFocused={false} onClick={this.closeDialog} />,
-        <FlatButton label="ok" primary={true} keyboardFocused={false} onClick={this.saveInput} />
+        <FlatButton label={stringsBattle.btnCancelLabel} secondary={true} keyboardFocused={false} onClick={this.closeDialog} />,
+        <FlatButton label={stringsBattle.btnOkLabel} primary={true} keyboardFocused={false} onClick={this.saveInput} />
       ];
 
       result = 
@@ -183,18 +183,18 @@ class Battle extends Component {
             <Toolbar style={config.styles.battle.Toolbar}>
               <ToolbarGroup>
                 <IconButton 
-                  tooltip="home" 
+                  tooltip={stringsBattle.btnHomeTips}
                   onClick={this.backToStart}
                   style={config.styles.battle.iconButton}
                   iconStyle={config.styles.battle.icon}>
                   <HomeIcon />
                 </IconButton>
                 <IconButton 
-                  tooltip="add" 
+                  tooltip={stringsBattle.btnAddTips}
                   onClick={this.openDialog}
                   style={config.styles.battle.iconButton}
                   iconStyle={config.styles.battle.icon}
-                  disabled={Number(this.state.bossHp) === 0}>
+                  disabled={Number(this.state.bossHp) <= 0}>
                   <AddCircleIcon />
                 </IconButton>
                 <ToolbarSeparator style={config.styles.battle.ToolbarSeparator} />
@@ -235,11 +235,11 @@ class Battle extends Component {
             
             <DatePicker 
               autoOk={true} 
-              floatingLabelText="Date" 
+              floatingLabelText={stringsBattle.dateFloatingLabelText}
               onChange={this.dateChange} />
             <TextField 
-              hintText="10,000" 
-              floatingLabelText="Money" 
+              hintText={stringsBattle.moneyHintText}
+              floatingLabelText={stringsBattle.moneyFloatingLabelText}
               value={this.state.inputMoney} 
               onChange={this.textChange} 
               type="number" />

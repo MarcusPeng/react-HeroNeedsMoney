@@ -12,5 +12,8 @@ export const config = {
       Toolbar: {padding: "5px"},
       Dialog: {width: "300px"}
     }
+  },
+  systemParameters: {
+    defaultTarget: 100
   }
 }

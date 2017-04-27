@@ -6,6 +6,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import './Log.css';
 import Start from '../start/Start';
 import DataAccess from '../../common/DataAccess';
+import {stringsLog} from '../../language/strings.js';
 
 class Log extends Component {
   constructor() {
@@ -33,9 +34,9 @@ class Log extends Component {
             <Table height={`${config.h - 125}px`}>
               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                 <TableRow>
-                  <TableHeaderColumn className="Log-column-index">Index</TableHeaderColumn>
-                  <TableHeaderColumn>Date</TableHeaderColumn>
-                  <TableHeaderColumn>Money</TableHeaderColumn>
+                  <TableHeaderColumn className="Log-column-index">{stringsLog.thIndex}</TableHeaderColumn>
+                  <TableHeaderColumn>{stringsLog.thDate}</TableHeaderColumn>
+                  <TableHeaderColumn>{stringsLog.thMoney}</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody displayRowCheckbox={false} stripedRows={true} showRowHover={true}>
@@ -51,7 +52,7 @@ class Log extends Component {
                 }
               </TableBody>
             </Table>
-          <RaisedButton className="Log-btn-back" label="back to start" onClick={this.backToStart} secondary={true} />
+          <RaisedButton className="Log-btn-back" label={stringsLog.btnBackLabel} onClick={this.backToStart} secondary={true} />
         </div>;
     }
 

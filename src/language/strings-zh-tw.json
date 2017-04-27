@@ -1,0 +1,35 @@
+{
+	"index" : {
+		"notSupport" : "瀏覽器未支援.."
+	},
+	"start" : {
+		"title" : "勇者沒有錢怎麼打敗大魔王",
+		"newGame" : "新遊戲",
+		"continue" : "繼續",
+		"log" : "記錄"
+	},
+	"setting" : {
+		"moneyAlert" : "目標金額需大於",
+		"moneyHintText" : "10,000",
+		"moneyFloatingLabelText" : "目標金額",
+		"btnCancelLabel" : "取消",
+		"btnStartLabel" : "開始"
+	},
+	"log" : {
+		"thIndex" : "順序",
+		"thDate" : "日期",
+		"thMoney" : "金額",
+		"btnBackLabel": "返回"
+	},
+	"battle" : {
+		"validateDateMsg" : "請輸入日期",
+		"validateMoneyMsg" : "請輸入金額",
+		"btnCancelLabel" : "取消",
+		"btnOkLabel" : "確定",
+		"btnHomeTips" : "首頁",
+		"btnAddTips" : "新增紀錄",
+		"dateFloatingLabelText" : "日期",
+		"moneyFloatingLabelText" : "金額",
+		"moneyHintText" : "10,000"
+	}
+}

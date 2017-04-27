@@ -7,8 +7,10 @@ import './Setting.css';
 import Battle from '../battle/Battle';
 import Start from '../start/Start';
 import DataAccess from '../../common/DataAccess';
+import {config} from '../../config.js';
+import {stringsSetting} from '../../language/strings.js';
 
-const defaultTarget = 10000;
+const defaultTarget = config.systemParameters.defaultTarget;
 
 class Setting extends Component{
   constructor(props) {
@@ -33,7 +35,7 @@ class Setting extends Component{
       this.setState({ action: "start" });
     }
     else {
-      alert(`Target need to bo greater than ${defaultTarget}.`);
+      alert(`${stringsSetting.moneyAlert} ${defaultTarget}.`);
       this.setState({ targetMoney: ''});
     }
   }
@@ -59,15 +61,15 @@ class Setting extends Component{
       result = 
         <div>
           <TextField 
-            hintText="10,000" 
-            floatingLabelText="Target Money" 
+            hintText={stringsSetting.moneyHintText}
+            floatingLabelText={stringsSetting.moneyFloatingLabelText}
             value={this.state.targetMoney} 
             onChange={this.textChange}
             type="number" 
             min={defaultTarget} />
           <br />
-          <RaisedButton label="cancel" onClick={this.cancel} secondary={true} className="Setting-button" />
-          <RaisedButton label="start" onClick={this.start} primary={true} className="Setting-button" />
+          <RaisedButton label={stringsSetting.btnCancelLabel} onClick={this.cancel} secondary={true} className="Setting-button" />
+          <RaisedButton label={stringsSetting.btnStartLabel} onClick={this.start} primary={true} className="Setting-button" />
         </div>;
     }
 

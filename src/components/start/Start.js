@@ -8,6 +8,7 @@ import DataAccess from '../../common/DataAccess';
 import Setting from '../setting/Setting';
 import Battle from '../battle/Battle';
 import Log from '../log/Log';
+import {stringsStart} from '../../language/strings.js';
 
 class Start extends Component{
   constructor(props) {
@@ -27,7 +28,11 @@ class Start extends Component{
   }
 
   btnClick(e){
-    let action = e.target.innerText.toLowerCase();
+    let element = e.target;
+    while (element.nodeName.toLowerCase() !== "button") {
+      element = element.parentElement;
+    }
+    let action = element.id;
     this.setState({ action: action });
   }
 
@@ -35,7 +40,7 @@ class Start extends Component{
     let result;
 
     switch(this.state.action) {
-      case 'new game':
+      case 'newGame':
         result = <Setting />;
         break;
 
@@ -52,12 +57,12 @@ class Start extends Component{
           <div>
             <img src={logo} className="Start-logo" alt="logo" />
             <br />
-            <h2>Hero Needs Money</h2>
-            <RaisedButton label="new game" onClick={this.btnClick} className="Start-btn" />
+            <h2>{stringsStart.title}</h2>
+            <RaisedButton label={stringsStart.newGame} onClick={this.btnClick} className="Start-btn" id="newGame" />
             <br /><br />
-            <RaisedButton label="continue" onClick={this.btnClick} className="Start-btn" disabled={this.state.isContinueDisabled} />
+            <RaisedButton label={stringsStart.continue} onClick={this.btnClick} className="Start-btn" id="continue" disabled={this.state.isContinueDisabled} />
             <br /><br />
-            <RaisedButton label="log" onClick={this.btnClick} className="Start-btn" disabled={this.state.isLogDisabled} />
+            <RaisedButton label={stringsStart.log} onClick={this.btnClick} className="Start-btn" id="log" disabled={this.state.isLogDisabled} />
           </div>;
         break;
     }
