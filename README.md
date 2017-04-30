@@ -1,6 +1,6 @@
 ## Hero Needs Money
 
-[DEMO Site](heroneedsmoney.freeiz.com)
+[DEMO Site](http://heroneedsmoney.freeiz.com)
 
 
 ## Create React App
